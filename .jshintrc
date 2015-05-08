@@ -65,7 +65,5 @@
     "worker": false,
     "wsh": false,
     "yui": false,
-    "globals": {
-        "Promise": true
-    }
+    "globals": {}
 }
