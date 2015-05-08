@@ -10,7 +10,7 @@
     }
 
     function refreshCounter() {
-      counter.innerHTML = items.children.length;
+      counter.innerHTML = items.children.length + ' items in list';
     }
 
     function addItem(text) {
@@ -58,12 +58,15 @@
     }
 
     inputField = createElement('input');
+    inputField.placeholder = 'Add items to list';
+
     addButton = createElement('button');
-    items = createElement('ul');
-    counter = createElement('div');
-
+    addButton.innerHTML = 'Add';
     addButton.addEventListener('click', onAddButtonClick);
+    
+    items = createElement('ul');
 
+    counter = createElement('div');
     refreshCounter();
 
     this.dom = {

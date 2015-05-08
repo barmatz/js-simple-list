@@ -74,15 +74,15 @@
     it('counter updates when an item is added or removed', function () {
       var counter = list.dom.counter;
 
-      expect(counter.innerHTML).to.equal('0');
+      expect(counter.innerHTML).to.equal('0 items in list');
 
       addItemToListAsUser('foo');
 
-      expect(counter.innerHTML).to.equal('1');
+      expect(counter.innerHTML).to.equal('1 items in list');
 
       removeItemFromListAsUser(0);
 
-      expect(counter.innerHTML).to.equal('0');
+      expect(counter.innerHTML).to.equal('0 items in list');
     });
   });
 }());
