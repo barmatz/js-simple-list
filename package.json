@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt test",
-    "install": "grunt build"
+    "install": "bower install && grunt build"
   },
   "author": {
     "name": "Or Barmatz",

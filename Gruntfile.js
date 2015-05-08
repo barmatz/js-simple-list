@@ -15,7 +15,7 @@ module.exports = function(grunt) {
             },
             all: [
                 '**/*.{js,json}',
-                '!{node_modules,lib}/**'
+                '!{node_modules,bower_components,lib}/**'
             ]
         },
         /* jshint camelcase: false */
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                 files: [
                     '**/.jshintrc',
                     '**/*.{js,json}',
-                    '!{node_modules,lib}/**'
+                    '!{node_modules,bower_components,lib}/**'
                 ],
                 tasks: 'default'
             },
