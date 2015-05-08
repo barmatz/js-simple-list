@@ -75,7 +75,5 @@
     };
   }
 
-  SimpleList.prototype.destroy = function () {};
-
   global.SimpleList = SimpleList;
 }(window));

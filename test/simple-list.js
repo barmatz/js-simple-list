@@ -25,7 +25,6 @@
     });
 
     afterEach(function () {
-      list.destroy();
       list = null;
     });
 
