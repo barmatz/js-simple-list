@@ -11,9 +11,11 @@ module.exports = function(grunt) {
                 '!node_modules/**'
             ]
         },
-        mochaTest: {
+        /* jshint camelcase: false */
+        mocha_phantomjs: {
+        /* jshint camelcase: true */
             test: {
-                src: 'test/**/*.js'
+                src: 'test/**/*.html'
             }
         },
         watch: {
@@ -27,15 +29,19 @@ module.exports = function(grunt) {
                     '!node_modules/**'
                 ],
                 tasks: 'default'
+            },
+            tests: {
+                files: 'test/**/*',
+                tasks: 'test'
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
     grunt.registerTask('default', [ 'lint', 'test' ]);
     grunt.registerTask('lint', [ 'jshint' ]);
-    grunt.registerTask('test', [ 'mochaTest' ]);
+    grunt.registerTask('test', [ 'mocha_phantomjs' ]);
 };
