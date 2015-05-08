@@ -21,6 +21,7 @@
     }
 
     beforeEach(function () {
+      fixture.setAttribute('data-simple-list-id', new Date().getTime());
       list = new SimpleList(fixture);
     });
 

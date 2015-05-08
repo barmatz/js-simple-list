@@ -3,7 +3,8 @@
   'use strict';
 
   function SimpleList(container) {
-    var inputField, addButton, items, counter;
+    var list = [],
+        listId, inputField, addButton, items, counter;
 
     /**
      * Shorthand for creating a DOM element and appending it to the container.
@@ -16,7 +17,22 @@
      * Refresh the counter with the current number of items.
      */
     function refreshCounter() {
-      counter.innerHTML = items.children.length + ' items in list';
+      counter.innerHTML = list.length + ' items in list';
+    }
+
+    /**
+     * Stores the list in a local store.
+     */
+    function storeData() {
+      localStorage.setItem('list-' + listId, JSON.stringify(list));
+    }
+
+    /**
+     * Updates the current state of the list.
+     */
+    function listHasChanged() {
+      refreshCounter();
+      storeData();
     }
 
     /**
@@ -34,7 +50,8 @@
       btn.setAttribute('data-simple-list-name', 'delete-btn');
       btn.addEventListener('click', onItemDeleteButtonClick);
 
-      refreshCounter();
+      list.push(text);
+      listHasChanged();
 
       return item;
     }
@@ -47,7 +64,9 @@
 
       items.removeChild(item);
       item.removeEventListener('click');
-      refreshCounter();
+
+      list.splice(index, 1);
+      listHasChanged();
     }
 
     /**
@@ -55,6 +74,19 @@
      */
     function getItem(index) {
       return items.children[index];
+    }
+
+    /**
+     * Load data from the local store.
+     */
+    function reloadList() {
+      var list = JSON.parse(localStorage.getItem('list-' + listId));
+
+      if (list) {
+        list.forEach(addItem);
+      }
+      
+      refreshCounter();
     }
 
     /**
@@ -80,6 +112,10 @@
       throw new Error('`container` is not a valid DOM element');
     }
 
+    // Set list ID based on a predefined ID or a timestamp.
+
+    listId  = container.getAttribute('data-simple-list-id') || (new Date().getTime());
+
     // Create child DOM elements
     
     inputField = createElement('input');
@@ -92,7 +128,10 @@
     items = createElement('ul');
 
     counter = createElement('div');
-    refreshCounter();
+
+    // Load existing items
+     
+    reloadList();
 
     // Expose DOM elements to the object scope.
 
