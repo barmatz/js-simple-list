@@ -1,0 +1,14 @@
+{
+  "name": "barmatz-rule-js-text",
+  "version": "0.0.1",
+  "description": "A JavaScript test for Rule",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Or Barmatz",
+    "email": "barmatzor@gmail.com"
+  },
+  "license": "ISC"
+}
