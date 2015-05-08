@@ -1,4 +1,4 @@
-/* globals expect */
+/* globals expect, SimpleList, $ */
 /* jshint expr: true */
 
 (function () {
@@ -13,11 +13,11 @@
       var dom = list.dom;
 
       dom.inputField.value = text;
-      dom.addButton.dispatchEvent('click');
+      $(dom.addButton).trigger('click');
     }
 
     function removeItemFromListAsUser(index) {
-      list.dom.getItem(index).getElementsByName('delete-btn').dispatchEvent('click');
+      $(list.dom.getItem(index)).find('*[data-simple-list-name="delete-btn"]').trigger('click');
     }
 
     beforeEach(function () {
@@ -30,44 +30,46 @@
     });
 
     it('has an input field', function () {
-      expect(list.dom.inputField).to.be.$visible;
+      expect($(list.dom.inputField)).to.be.$visible;
     });
 
     it('has an add button', function () {
-      expect(list.dom.addButton).to.be.$visible;
+      expect($(list.dom.addButton)).to.be.$visible;
     });
 
     it('has an item container', function () {
-      expect(list.dom.items).to.be.$visible;
+      expect($(list.dom.items)).to.be.$visible;
     });
 
     it('has an item counter', function () {
-      expect(list.dom.counter).to.be.$visible;
+      expect($(list.dom.counter)).to.be.$visible;
     });
 
     it('can have a user add an item', function () {
-      var items = list.dom.items;
+      var dom = list.dom,
+          items = dom.items;
 
-      expect(items.numChildren).to.equal(0);
+      expect(items.children.length).to.equal(0);
 
       addItemToListAsUser('foo');
 
-      expect(items.numChildren).to.equal(1);
+      expect(items.children.length).to.equal(1);
+      expect($(dom.getItem(0)).find('*[data-simple-list-name="label"]').html()).to.equal('foo');
     });
 
     it('can have a user delete an item', function() {
       var dom = list.dom,
           items = dom.items;
 
-      expect(items.numChildren).to.equal(0);
+      expect(items.children.length).to.equal(0);
       
       addItemToListAsUser('foo');
 
-      expect(items.numChildren).to.equal(1);
+      expect(items.children.length).to.equal(1);
 
       removeItemFromListAsUser(0);
 
-      expect(items.numChildren).to.equal(0);
+      expect(items.children.length).to.equal(0);
     });
 
     it('counter updates when an item is added or removed', function () {
@@ -79,7 +81,7 @@
 
       expect(counter.innerHTML).to.equal('1');
 
-      addItemToListAsUser(0);
+      removeItemFromListAsUser(0);
 
       expect(counter.innerHTML).to.equal('0');
     });

@@ -2,13 +2,20 @@
 
 module.exports = function(grunt) {
     grunt.initConfig({
+        concat: {
+            build: {
+                files: {
+                    'lib/simple-list.js': 'src/**/*.js'
+                }
+            }
+        },
         jshint: {
             options: {
                 jshintrc: true
             },
             all: [
                 '**/*.{js,json}',
-                '!node_modules/**'
+                '!{node_modules,lib}/**'
             ]
         },
         /* jshint camelcase: false */
@@ -26,7 +33,7 @@ module.exports = function(grunt) {
                 files: [
                     '**/.jshintrc',
                     '**/*.{js,json}',
-                    '!node_modules/**'
+                    '!{node_modules,lib}/**'
                 ],
                 tasks: 'default'
             },
@@ -37,11 +44,13 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
-    grunt.registerTask('default', [ 'lint', 'test' ]);
+    grunt.registerTask('default', [ 'lint', 'build', 'test' ]);
     grunt.registerTask('lint', [ 'jshint' ]);
     grunt.registerTask('test', [ 'mocha_phantomjs' ]);
+    grunt.registerTask('build', [ 'concat' ]);
 };
